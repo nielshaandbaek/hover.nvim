@@ -11,6 +11,7 @@ local function execute(opts, done)
 	local job = require("hover.async.job").job
 
 	job({ "rg", "'#+\\s+" .. query .. "\\b'", "~", "-g", "'*.md'" }, function(result)
+		print(vim.inspect(result))
 		if result == nil then
 			done(false)
 			return
