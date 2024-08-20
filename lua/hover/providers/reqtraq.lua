@@ -1,7 +1,6 @@
 local REQUIREMENT_PATTERN = "REQ-%u+-%u+-%d+"
 
 local function enabled()
-	-- Match 2 or more uppercase letters followed by a '-' and 1 or more digits.
 	return vim.fn.expand("<cWORD>"):match(REQUIREMENT_PATTERN) ~= nil
 end
 
