@@ -1,15 +1,17 @@
-local REQUIREMENT_PATTERN = "REQ-%u+-%u+-%d+"
+local REQUIREMENT_PATTERN = "REQ%-%u+%-%u+%-%d+"
 
-local function enabled()
+local function enabled(bufnr)
 	return vim.fn.expand("<cWORD>"):match(REQUIREMENT_PATTERN) ~= nil
 end
 
 local function execute(opts, done)
 	local query = vim.fn.expand("<cWORD>"):match(REQUIREMENT_PATTERN)
+	print(vim.inspect(query))
 
 	local job = require("hover.async.job").job
-
-	job({ "rg", "'#+\\s+" .. query .. "\\b'", "~", "-g", "'*.md'" }, function(result)
+	local full_query = "'#+\\s+" .. query .. "\\b'"
+	print(vim.inspect(full_query))
+	job({ "rg", full_query, "~" }, function(result)
 		print(vim.inspect(result))
 		if result == nil then
 			done(false)
